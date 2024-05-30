@@ -24,7 +24,7 @@ void MainWindow::openGenDialog()
 
         if (selectedOption == "ТЕКСТОВЫЙ ВЫВОД") {
             m_treeWindow->randomInsertion(genDialog.getStart().toInt(), genDialog.getEnd().toInt(), genDialog.getQuality().toInt(), genDialog.getCheckbox(), genDialog.getPathDic(), 1, genDialog.getChildren());
-        } else if (selectedOption == "ГРАФИЧЕСКИЙ ВЫВОД (НЕ РЕКОМЕНДУЕЦА ИСПОЛЬЗОВАТЬ ЕСЛИ КОЛЛИЧЕСТВО ВЕРШИН БОЛЬШЕ 100.000)") {
+        } else if (selectedOption == "ГРАФИЧЕСКИЙ ВЫВОД (НЕ РЕКОМЕНДУЕТСЯ ИСПОЛЬЗОВАТЬ ЕСЛИ КОЛЛИЧЕСТВО ВЕРШИН БОЛЬШЕ 100.000)") {
             m_treeWindow->randomInsertion(genDialog.getStart().toInt(), genDialog.getEnd().toInt(), genDialog.getQuality().toInt(), genDialog.getCheckbox(), genDialog.getPathDic(), 2, genDialog.getChildren());
         } else if (selectedOption == "БЕЗ ВЫВОДА") {
             m_treeWindow->randomInsertion(genDialog.getStart().toInt(), genDialog.getEnd().toInt(), genDialog.getQuality().toInt(), genDialog.getCheckbox(), genDialog.getPathDic(), 3, genDialog.getChildren());
