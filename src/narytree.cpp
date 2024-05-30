@@ -55,13 +55,18 @@ Node* NAryTree::m_iterativInsertNode(int value, Node* node, int children) {
 }
 
 void NAryTree::randomInsertion(int start, int end, int amount, int children) {
+    QElapsedTimer timer;
+    timer.start();
     for (int i = 0; i < amount; ++i) {
         int value = QRandomGenerator::global()->bounded(start, end + 1);
         iterativInsert(value, children);
     }
+    qDebug() << "randomInsertion" << timer.elapsed() << "milliseconds";
 }
 
 std::map<int, int> NAryTree::getNodesPerLevel() const {
+    QElapsedTimer timer;
+    timer.start();
     std::map<int, int> levelCount;
     if (!root) return levelCount;
 
@@ -78,105 +83,11 @@ std::map<int, int> NAryTree::getNodesPerLevel() const {
         }
     }
 
+    qDebug() << "getNodesPerLevel" << timer.elapsed() << "milliseconds";
     return levelCount;
 }
 
 
-// void NAryTree::writeNodeToFile(Node* node, QTextStream& out) {
-//     if (node != nullptr) {
-//         out << node->value << " " << node->id << " " << node->children.size() << " ";
-//         for (Node* child : node->children) {
-//             out << child->id << " ";
-//         }
-//         out << "\n";
-//         for (Node* child : node->children) {
-//             writeNodeToFile(child, out);
-//         }
-//     }
-// }
-
-// void NAryTree::writeTreeToFile(const QString& filename) {
-//     QElapsedTimer timer;
-//     timer.start();
-
-//     QFile file(filename);
-//     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-//         qDebug() << "writeTreeToFile: Невозможно открыть файл для записи" << file.errorString();
-//         return;
-//     }
-
-//     QTextStream out(&file);
-//     writeNodeToFile(root, out);
-
-//     file.close();
-
-//     if (file.error() != QFile::NoError) {
-//         qDebug() << "writeTreeToFile: Ошибка при записи файла" << file.errorString();
-//     }
-
-//     qDebug() << "writeTreeToFile" << timer.elapsed() << "milliseconds";
-// }
-
-// void NAryTree::readTreeFromFile(const QString& filename) {
-//     QFile file(filename);
-//     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-//         qDebug() << "readTreeFromFile: Невозможно открыть файл для чтения" << file.errorString();
-//         return;
-//     }
-
-//     QTextStream in(&file);
-
-//     delete root;
-//     root = nullptr;
-//     nodes_amount = 0;
-
-//     QMap<int, Node*> nodeMap;
-
-//     while (!in.atEnd()) {
-//         QString line = in.readLine();
-//         readNodeFromFile(line, nodeMap);
-//     }
-
-//     // Установим корневой узел
-//     root = nodeMap.value(0);
-
-//     file.close();
-
-//     if (file.error() != QFile::NoError) {
-//         qDebug() << "readTreeFromFile: Ошибка при чтении файла" << file.errorString();
-//     }
-// }
-
-// void NAryTree::readNodeFromFile(const QString& line, QMap<int, Node*>& nodeMap) {
-//     QStringList parts = line.split(" ");
-//     if (parts.size() < 3) return;
-
-//     int value = parts[0].toInt();
-//     int id = parts[1].toInt();
-//     int childrenCount = parts[2].toInt();
-
-//     Node* node = nodeMap.value(id, nullptr);
-//     if (!node) {
-//         node = new Node(value, id);
-//         nodeMap[id] = node;
-//     } else {
-//         node->value = value;
-//     }
-
-//     for (int i = 0; i < childrenCount; ++i) {
-//         int childId = parts[3 + i].toInt();
-//         Node* childNode = nodeMap.value(childId, nullptr);
-//         if (!childNode) {
-//             childNode = new Node(0, childId);
-//             nodeMap[childId] = childNode;
-//         }
-//         node->children.push_back(childNode);
-//     }
-
-//     if (id >= nodes_amount) {
-//         nodes_amount = id + 1;
-//     }
-// }
 
 void NAryTree::writeNodeToFile(Node* node, QTextStream& out) {
     if (node != nullptr) {
@@ -310,19 +221,32 @@ void NAryTree::readTreeFromText(const QString& text) {
         }
 
         // Установим корневой узел
-        root = nodeMap.value(0);
+        root = nodeMap.value(0, nullptr);
+        if (!root) {
+            qDebug() << "readTreeFromText: Корневой узел не найден";
+        }
+    } catch (const std::exception& e) {
+        qDebug() << "readTreeFromText: Exception occurred:" << e.what();
     } catch (...) {
+        qDebug() << "readTreeFromText: Unknown exception occurred";
     }
 }
-
 void NAryTree::readNodeFromText(const QString& line, QMap<int, Node*>& nodeMap) {
     try {
         QStringList parts = line.split(" ", Qt::SkipEmptyParts);
-        if (parts.size() < 3) return;
+        if (parts.size() < 2) {
+            qDebug() << "readNodeFromText: Incorrect format, line ignored:" << line;
+            return;
+        }
 
-        int value = parts[0].toInt();
-        int id = parts[1].toInt();
-        int childrenCount = parts[2].toInt();
+        bool valueOk, idOk;
+        int value = parts[0].toInt(&valueOk);
+        int id = parts[1].toInt(&idOk);
+
+        if (!valueOk || !idOk) {
+            qDebug() << "readNodeFromText: Conversion error, line ignored:" << line;
+            return;
+        }
 
         Node* node = nodeMap.value(id, nullptr);
         if (!node) {
@@ -332,8 +256,14 @@ void NAryTree::readNodeFromText(const QString& line, QMap<int, Node*>& nodeMap) 
             node->value = value;
         }
 
-        for (int i = 0; i < childrenCount; ++i) {
-            int childId = parts[3 + i].toInt();
+        for (int i = 2; i < parts.size(); ++i) {
+            bool childIdOk;
+            int childId = parts[i].toInt(&childIdOk);
+            if (!childIdOk) {
+                qDebug() << "readNodeFromText: Child ID conversion error, part ignored:" << parts[i];
+                continue;
+            }
+
             Node* childNode = nodeMap.value(childId, nullptr);
             if (!childNode) {
                 childNode = new Node(0, childId);
@@ -345,9 +275,13 @@ void NAryTree::readNodeFromText(const QString& line, QMap<int, Node*>& nodeMap) 
         if (id >= nodes_amount) {
             nodes_amount = id + 1;
         }
+    } catch (const std::exception& e) {
+        qDebug() << "readNodeFromText: Exception occurred:" << e.what();
     } catch (...) {
+        qDebug() << "readNodeFromText: Unknown exception occurred";
     }
 }
+
 
 void NAryTree::printTree(QTextEdit *textEdit) {
     QString treeOutput;
