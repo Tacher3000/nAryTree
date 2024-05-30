@@ -1,0 +1,27 @@
+# ninja log v5
+12	172	7382535827457728	nAryTree_autogen/mocs_compilation.cpp	bb39bbba6d09b32
+12	172	7382535827457728	nAryTree_autogen/timestamp	bb39bbba6d09b32
+1365	5638	7382502485805759	CMakeFiles/nAryTree.dir/src/mainwindow.cpp.obj	ae9d4dfc3dc038a6
+12	172	7382535827457728	C:/Users/pyanc/Desktop/qt/nAryTree/nAryTree/build/Desktop_Qt_6_7_0_MinGW_64_bit-Release/nAryTree_autogen/timestamp	bb39bbba6d09b32
+1449	4647	7379819711524137	CMakeFiles/nAryTree.dir/src/gendialog.cpp.obj	5b145c7ca3a6639a
+1333	4251	7376475446395833	CMakeFiles/nAryTree.dir/src/scalablegraphicsview.cpp.obj	242a1340e514fc67
+12	172	7382535827457728	C:/Users/pyanc/Desktop/qt/nAryTree/nAryTree/build/Desktop_Qt_6_7_0_MinGW_64_bit-Release/nAryTree_autogen/mocs_compilation.cpp	bb39bbba6d09b32
+1339	3945	7376475443455900	CMakeFiles/nAryTree.dir/src/homescreen.cpp.obj	284bdac3b63f4e1c
+183	2906	7382535854820398	CMakeFiles/nAryTree.dir/src/narytree.cpp.obj	367b3b8b71e0ef74
+1361	5635	7382502485799150	CMakeFiles/nAryTree.dir/src/main.cpp.obj	ec3b3d87da1bb5b1
+1356	5642	7382502485851550	CMakeFiles/nAryTree.dir/nAryTree_autogen/mocs_compilation.cpp.obj	23cbd4fb5c598beb
+214	3020	7382505311788025	CMakeFiles/nAryTree.dir/src/treewindow.cpp.obj	c7dc44041bbb546e
+3014	3173	7382534007403440	nAryTree.exe	c3924b29e8647fd5
+11	145	7382535914045536	nAryTree.exe	c3924b29e8647fd5
+7	172	7382537970842850	nAryTree_autogen/timestamp	bb39bbba6d09b32
+7	172	7382537970842850	nAryTree_autogen/mocs_compilation.cpp	bb39bbba6d09b32
+7	172	7382537970842850	C:/Users/pyanc/Desktop/qt/nAryTree/nAryTree/build/Desktop_Qt_6_7_0_MinGW_64_bit-Release/nAryTree_autogen/timestamp	bb39bbba6d09b32
+7	172	7382537970842850	C:/Users/pyanc/Desktop/qt/nAryTree/nAryTree/build/Desktop_Qt_6_7_0_MinGW_64_bit-Release/nAryTree_autogen/mocs_compilation.cpp	bb39bbba6d09b32
+188	2835	7382537997496875	CMakeFiles/nAryTree.dir/src/narytree.cpp.obj	367b3b8b71e0ef74
+2836	2993	7382537999012571	nAryTree.exe	c3924b29e8647fd5
+18	189	7382538716139423	nAryTree_autogen/timestamp	bb39bbba6d09b32
+18	189	7382538716139423	nAryTree_autogen/mocs_compilation.cpp	bb39bbba6d09b32
+18	189	7382538716139423	C:/Users/pyanc/Desktop/qt/nAryTree/nAryTree/build/Desktop_Qt_6_7_0_MinGW_64_bit-Release/nAryTree_autogen/timestamp	bb39bbba6d09b32
+18	189	7382538716139423	C:/Users/pyanc/Desktop/qt/nAryTree/nAryTree/build/Desktop_Qt_6_7_0_MinGW_64_bit-Release/nAryTree_autogen/mocs_compilation.cpp	bb39bbba6d09b32
+201	2603	7382538740298324	CMakeFiles/nAryTree.dir/src/narytree.cpp.obj	367b3b8b71e0ef74
+2604	2753	7382538741729211	nAryTree.exe	c3924b29e8647fd5
