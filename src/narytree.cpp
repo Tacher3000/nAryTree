@@ -65,8 +65,8 @@ void NAryTree::randomInsertion(int start, int end, int amount, int children) {
 }
 
 std::map<int, int> NAryTree::getNodesPerLevel() const {
-    QElapsedTimer timer;
-    timer.start();
+    auto start = std::chrono::high_resolution_clock::now();
+
     std::map<int, int> levelCount;
     if (!root) return levelCount;
 
@@ -83,7 +83,13 @@ std::map<int, int> NAryTree::getNodesPerLevel() const {
         }
     }
 
-    qDebug() << "getNodesPerLevel" << timer.elapsed() << "milliseconds";
+    auto end = std::chrono::high_resolution_clock::now();
+
+    // Рассчитываем длительность выполнения задачи
+    std::chrono::duration<double, std::micro> duration = end - start;
+
+    // Выводим время выполнения в микросекундах
+    qDebug() << "Время выполнения: " << duration.count() << " микросекунд";
     return levelCount;
 }
 
